@@ -195,8 +195,9 @@ class Provider:
         if not query:
             return EmptyResponse(bounds)
         
-        if query not in self.columns:
+        if query not in self.columns or not self.columns[query]:
             self.columns[query] = query_columns(self.dbinfo, self.srid, query, bounds)
+            print ("Columns from query", query, bounds, "are", self.columns[query])
 
         if not self.columns[query]:
             return EmptyResponse(bounds)
